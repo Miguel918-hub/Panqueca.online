@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Panqueca Online (OFC) 🥞</title>
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#141b2e;
+      --accent:#ffcf6b;
+      --text:#fff;
+      --muted:#b6bfd0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    .wrap{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      padding:20px;
+    }
+    .pancake-layer{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      overflow:hidden;
+    }
+    .pancake{
+      position:absolute;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.5));
+      animation: floatUp linear infinite;
+      opacity:0.9;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity:0 }
+      10%  { opacity:1 }
+      50%  { transform: translateY(-20vh) rotate(180deg) }
+      90%  { opacity:0.8 }
+      100% { transform: translateY(-120vh) rotate(360deg); opacity:0 }
+    }
+    .card{
+      position:relative;
+      z-index:2;
+      padding:20px;
+      max-width:500px;
+      width:100%;
+      background:rgba(0,0,0,0.4);
+      border-radius:12px;
+      text-align:center;
+      backdrop-filter: blur(8px);
+    }
+    h1{
+      font-size:1.8em;
+      margin-bottom:8px;
+    }
+    p{
+      font-size:1em;
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+    .pill{
+      display:inline-block;
+      padding:8px 12px;
+      background:rgba(255,255,255,0.1);
+      border-radius:999px;
+      margin:5px;
+      font-size:0.9em;
+    }
+    @media (max-width:480px){
+      h1{font-size:1.4em;}
+      p{font-size:0.9em;}
+      .pill{font-size:0.8em;padding:6px 10px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="pancake-layer" id="pancakeLayer"></div>
+    <div class="card">
+      <h1>Panqueca Online (OFC) 🥞</h1>
+      <h2>FOTOS</h2>
+      <p>Não temos no momento</p>
+      <div class="pill">COMIDA QUE ELE COME: Panqueca</div>
+      <div class="pill">SITE FEITO POR: ®️ 🤫 Miguel 🤫 ®️</div>
+    </div>
+  </div>
+  <script>
+    const layer = document.getElementById('pancakeLayer');
+    const emojis = "🥞";
+    const width = window.innerWidth;
+    let count;
+    if(width <= 480){
+      count = 20; // celular
+    } else if(width <= 1024){
+      count = 35; // tablet
+    } else {
+      count = 60; // PC
+    }
+    const rand = (a,b)=> a + Math.random()*(b-a);
+    for(let i=0;i<count;i++){
+      const el = document.createElement('div');
+      el.className = 'pancake';
+      el.textContent = emojis;
+      const size = rand(20, 50);
+      el.style.fontSize = size + 'px';
+      el.style.left = rand(-10, 100) + '%';
+      el.style.top = rand(0, 100) + 'vh';
+      el.style.animationDuration = rand(8, 20) + 's';
+      el.style.animationDelay = rand(-20, 0) + 's';
+      layer.appendChild(el);
+    }
+  </script>
+</body>
+</html>
