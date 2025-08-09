@@ -1,123 +1,148 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Panqueca Online (OFC) 🥞</title>
-  <style>
-    :root{
-      --bg1:#0b1020;
-      --bg2:#141b2e;
-      --accent:#ffcf6b;
-      --text:#fff;
-      --muted:#b6bfd0;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Panqueca Online (OFC) 🥞</title>
+<style>
+  /* Reset básico */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f7b733, #fc4a1a);
+    min-height: 100vh;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  header {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  }
+
+  /* Container panquecas */
+  .panquecas-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .panqueca {
+    background: #fff5d1;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(252, 74, 26, 0.5);
+    width: 180px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .panqueca:hover {
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 0 12px 25px rgba(252, 74, 26, 0.8);
+  }
+
+  /* Imagem animada */
+  .panqueca img {
+    max-width: 130px;
+    max-height: 130px;
+    animation: panquecaBalanço 3s ease-in-out infinite;
+  }
+
+  @keyframes panquecaBalanço {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(7deg) translateY(-10px); }
+  }
+
+  /* Mensagem ou imagem caso não tenha panquecas */
+  .no-panqueca {
+    margin-top: 40px;
+    text-align: center;
+  }
+  .no-panqueca img {
+    max-width: 200px;
+    opacity: 0.8;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  }
+  .no-panqueca p {
+    margin-top: 15px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 6px #000;
+  }
+
+  /* Responsividade */
+  @media (max-width: 600px) {
+    .panqueca {
+      width: 130px;
+      height: 130px;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg,var(--bg1),var(--bg2));
-      color:var(--text);
-      overflow-x:hidden;
+    .panqueca img {
+      max-width: 100px;
+      max-height: 100px;
     }
-    .wrap{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      padding:20px;
+    header {
+      font-size: 2rem;
+      margin-bottom: 20px;
     }
-    .pancake-layer{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      overflow:hidden;
-    }
-    .pancake{
-      position:absolute;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.5));
-      animation: floatUp linear infinite;
-      opacity:0.9;
-    }
-    @keyframes floatUp {
-      0%   { transform: translateY(100vh) rotate(0deg); opacity:0 }
-      10%  { opacity:1 }
-      50%  { transform: translateY(-20vh) rotate(180deg) }
-      90%  { opacity:0.8 }
-      100% { transform: translateY(-120vh) rotate(360deg); opacity:0 }
-    }
-    .card{
-      position:relative;
-      z-index:2;
-      padding:20px;
-      max-width:500px;
-      width:100%;
-      background:rgba(0,0,0,0.4);
-      border-radius:12px;
-      text-align:center;
-      backdrop-filter: blur(8px);
-    }
-    h1{
-      font-size:1.8em;
-      margin-bottom:8px;
-    }
-    img{
-      width:100%;
-      max-width:300px;
-      border-radius:10px;
-      margin:10px 0 20px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.4);
-    }
-    .pill{
-      display:inline-block;
-      padding:8px 12px;
-      background:rgba(255,255,255,0.1);
-      border-radius:999px;
-      margin:5px;
-      font-size:0.9em;
-    }
-    @media (max-width:480px){
-      h1{font-size:1.4em;}
-      .pill{font-size:0.8em;padding:6px 10px;}
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="pancake-layer" id="pancakeLayer"></div>
-    <div class="card">
-      <h1>Panqueca Online (OFC) 🥞</h1>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Stack_of_pancakes.jpg" alt="Foto de panqueca">
-      <div class="pill">COMIDA QUE ELE COME: Panqueca</div>
-      <div class="pill">SITE FEITO POR: ®️ 🤫 Miguel 🤫 ®️</div>
-    </div>
-  </div>
-  <script>
-    const layer = document.getElementById('pancakeLayer');
-    const emojis = "🥞";
-    const width = window.innerWidth;
-    let count;
-    if(width <= 480){
-      count = 20; // celular
-    } else if(width <= 1024){
-      count = 35; // tablet
-    } else {
-      count = 60; // PC
-    }
-    const rand = (a,b)=> a + Math.random()*(b-a);
-    for(let i=0;i<count;i++){
-      const el = document.createElement('div');
-      el.className = 'pancake';
-      el.textContent = emojis;
-      const size = rand(20, 50);
-      el.style.fontSize = size + 'px';
-      el.style.left = rand(-10, 100) + '%';
-      el.style.top = rand(0, 100) + 'vh';
-      el.style.animationDuration = rand(8, 20) + 's';
-      el.style.animationDelay = rand(-20, 0) + 's';
-      layer.appendChild(el);
-    }
-  </script>
+
+<header>Panqueca Online (OFC) 🥞</header>
+
+<div class="panquecas-container" id="panquecasContainer">
+  <!-- Panquecas serão inseridas dinamicamente aqui -->
+</div>
+
+<div class="no-panqueca" id="noPanqueca" style="display:none;">
+  <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=400&q=80" alt="Panqueca saborosa" />
+  <p>Não temos panquecas no momento...</p>
+</div>
+
+<script>
+  // Simula panquecas, se não tiver nenhuma, mostra a mensagem com a imagem
+  const panquecas = [
+    // URLs de imagens de panquecas legais e animadas
+    "https://images.unsplash.com/photo-1572441710645-7f2fa5a7843e?auto=format&fit=crop&w=300&q=80",
+    "https://images.unsplash.com/photo-1495214783159-3503fd1b572d?auto=format&fit=crop&w=300&q=80",
+    "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=300&q=80",
+    "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=300&q=80"
+  ];
+
+  const container = document.getElementById('panquecasContainer');
+  const noPanqueca = document.getElementById('noPanqueca');
+
+  if (panquecas.length === 0) {
+    noPanqueca.style.display = 'block';
+  } else {
+    noPanqueca.style.display = 'none';
+    panquecas.forEach(src => {
+      const div = document.createElement('div');
+      div.classList.add('panqueca');
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = "Imagem de panqueca";
+      div.appendChild(img);
+      container.appendChild(div);
+    });
+  }
+</script>
+
 </body>
 </html>
