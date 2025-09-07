@@ -1,123 +1,182 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Panqueca Online (OFC) 🥞</title>
-  <style>
-    :root{
-      --bg1:#0b1020;
-      --bg2:#141b2e;
-      --accent:#ffcf6b;
-      --text:#fff;
-      --muted:#b6bfd0;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg,var(--bg1),var(--bg2));
-      color:var(--text);
-      overflow-x:hidden;
-    }
-    .wrap{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      padding:20px;
-    }
-    .pancake-layer{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      overflow:hidden;
-    }
-    .pancake{
-      position:absolute;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.5));
-      animation: floatUp linear infinite;
-      opacity:0.9;
-    }
-    @keyframes floatUp {
-      0%   { transform: translateY(100vh) rotate(0deg); opacity:0 }
-      10%  { opacity:1 }
-      50%  { transform: translateY(-20vh) rotate(180deg) }
-      90%  { opacity:0.8 }
-      100% { transform: translateY(-120vh) rotate(360deg); opacity:0 }
-    }
-    .card{
-      position:relative;
-      z-index:2;
-      padding:20px;
-      max-width:500px;
-      width:100%;
-      background:rgba(0,0,0,0.4);
-      border-radius:12px;
-      text-align:center;
-      backdrop-filter: blur(8px);
-    }
-    h1{
-      font-size:1.8em;
-      margin-bottom:8px;
-    }
-    p{
-      font-size:1em;
-      color:var(--muted);
-      margin-bottom:20px;
-    }
-    .pill{
-      display:inline-block;
-      padding:8px 12px;
-      background:rgba(255,255,255,0.1);
-      border-radius:999px;
-      margin:5px;
-      font-size:0.9em;
-    }
-    @media (max-width:480px){
-      h1{font-size:1.4em;}
-      p{font-size:0.9em;}
-      .pill{font-size:0.8em;padding:6px 10px;}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comandos Exército Coreano 🇰🇷</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0d1b2a;
+            color: #e0e1dd;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #1b263b;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #e63946;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a8dadc;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .command-section {
+            background-color: #415a77;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .command-section:hover {
+            background-color: #778da9;
+            transform: translateY(-2px);
+        }
+        
+        .command-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffb703;
+        }
+        
+        .command-text {
+            background-color: #1b263b;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: #2a9d8f;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            opacity: 1;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #a8dadc;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .command-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="pancake-layer" id="pancakeLayer"></div>
-    <div class="card">
-      <h1>Panqueca Online (OFC) 🥞</h1>
-      <h2>FOTOS</h2>
-      <p>Não temos no momento</p>
-      <div class="pill">COMIDA QUE ELE COME: Panqueca</div>
-      <div class="pill">SITE FEITO POR: ®️ 🤫 Miguel 🤫 ®️</div>
+    <div class="container">
+        <header>
+            <h1>Comandos Exército Coreano 🇰🇷</h1>
+            <p class="subtitle">Clique em qualquer comando para copiá-lo automaticamente</p>
+        </header>
+        
+        <div class="command-list">
+            <div class="command-section" onclick="copyText('//Mat [ SEM - ERRO ] ⚑🎖️ [ ROK • Special Ops 🇰🇷 ] 🎖️⚑')">
+                <div class="command-title">//Mat</div>
+                <div class="command-text">//Mat [ SEM - ERRO ] ⚑🎖️ [ ROK • Special Ops 🇰🇷 ] 🎖️⚑</div>
+            </div>
+            
+            <div class="command-section" onclick="copyText('//Furar Pneu [ SEM - ERRO ] 🪖⚑🔧 [ Forças de Choque - Veículo Neutralizado ] 🔧⚑🪖')">
+                <div class="command-title">//Furar Pneu</div>
+                <div class="command-text">//Furar Pneu [ SEM - ERRO ] 🪖⚑🔧 [ Forças de Choque - Veículo Neutralizado ] 🔧⚑🪖</div>
+            </div>
+            
+            <div class="command-section" onclick="copyText('//Algemar Mãos e Pés [ SEM - ERRO ] ⚑🪖🔗 [ ROK • Prisoner Secured ] 🔗🪖⚑')">
+                <div class="command-title">//Algemar Mão e Pés</div>
+                <div class="command-text">//Algemar Mãos e Pés [ SEM - ERRO ] ⚑🪖🔗 [ ROK • Prisoner Secured ] 🔗🪖⚑</div>
+            </div>
+            
+            <div class="command-section" onclick="copyText('//Arrombar Porta [ SEM - ERRO ] ⚑🪖🔫 [ Forças Especiais - Breach ] 🔫🪖⚑')">
+                <div class="command-title">//Arrombar Porta</div>
+                <div class="command-text">//Arrombar Porta [ SEM - ERRO ] ⚑🪖🔫 [ Forças Especiais - Breach ] 🔫🪖⚑</div>
+            </div>
+            
+            <div class="command-section" onclick="copyText('//PD [ PERM ] ⚑🪖💂‍♂️ [ Fim de Linha - 전사 ] 💂‍♂️🪖⚑')">
+                <div class="command-title">//PD PERM</div>
+                <div class="command-text">//PD [ PERM ] ⚑🪖💂‍♂️ [ Fim de Linha - 전사 ] 💂‍♂️🪖⚑</div>
+            </div>
+        </div>
+        
+        <div class="notification" id="notification">Texto copiado com sucesso!</div>
     </div>
-  </div>
-  <script>
-    const layer = document.getElementById('pancakeLayer');
-    const emojis = "🥞";
-    const width = window.innerWidth;
-    let count;
-    if(width <= 480){
-      count = 20; // celular
-    } else if(width <= 1024){
-      count = 35; // tablet
-    } else {
-      count = 60; // PC
-    }
-    const rand = (a,b)=> a + Math.random()*(b-a);
-    for(let i=0;i<count;i++){
-      const el = document.createElement('div');
-      el.className = 'pancake';
-      el.textContent = emojis;
-      const size = rand(20, 50);
-      el.style.fontSize = size + 'px';
-      el.style.left = rand(-10, 100) + '%';
-      el.style.top = rand(0, 100) + 'vh';
-      el.style.animationDuration = rand(8, 20) + 's';
-      el.style.animationDelay = rand(-20, 0) + 's';
-      layer.appendChild(el);
-    }
-  </script>
+    
+    <footer>
+        <p>Site criado para facilitar a cópia de comandos usados frequentemente</p>
+    </footer>
+
+    <script>
+        function copyText(text) {
+            // Usando a API moderna de clipboard
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification();
+            }).catch(err => {
+                // Fallback para método antigo se o moderno falhar
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification();
+            });
+        }
+        
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
